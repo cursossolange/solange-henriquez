@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autodiagnóstico de Equipo — Solange Henríquez</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--vino:#7D1F3B;--vino-dark:#5C1629;--cobre:#B5803A;--crema:#F5E6EB;--blanco:#FDFAF8;--texto:#2C1A20;--texto-suave:#6B4A52}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden;min-height:100vh}
+
+.hero{background:var(--vino);padding:60px 40px 52px;text-align:center;position:relative}
+.hero-border{position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:0.5px solid rgba(181,128,58,0.3);pointer-events:none}
+.hero-tag{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:24px}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:600;color:white;line-height:1;margin-bottom:12px}
+.hero-line{width:100px;height:2px;background:var(--cobre);margin:0 auto 24px}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,20px);font-weight:400;font-style:italic;color:var(--crema);max-width:520px;margin:0 auto;line-height:1.5;opacity:0.9}
+
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* STEP INDICATOR */
+.steps{display:flex;justify-content:center;gap:8px;padding:32px 0 0}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(125,31,59,0.2);transition:all 0.3s}
+.step-dot.active{background:var(--vino);transform:scale(1.3)}
+.step-dot.done{background:var(--cobre)}
+
+/* SCREENS */
+.screen{display:none;animation:fadeIn 0.4s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* INTRO */
+.intro{padding:48px 0 64px;text-align:center}
+.intro-label{display:block;font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:16px}
+.intro-titulo{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--vino);line-height:1.15;margin-bottom:20px}
+.intro-texto{font-size:15px;font-weight:300;color:var(--texto-suave);line-height:1.9;max-width:560px;margin:0 auto 16px}
+.intro-modelo{font-size:13px;font-weight:400;color:var(--texto-suave);max-width:520px;margin:0 auto 36px;padding:16px 24px;border-left:2px solid var(--cobre);text-align:left;background:#F9F3F5;line-height:1.7}
+.intro-modelo strong{color:var(--vino);font-weight:600}
+.intro-escala{font-size:13px;color:var(--texto-suave);margin-bottom:36px;font-style:italic}
+.btn{display:inline-block;padding:14px 48px;background:var(--vino);color:white;font-size:11px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s;font-family:'DM Sans',sans-serif}
+.btn:hover{background:var(--vino-dark)}
+.btn-cobre{background:var(--cobre)}
+.btn-cobre:hover{background:#9A6B2E}
+
+/* PREGUNTAS */
+.pregunta-wrap{padding:48px 0 64px}
+.pregunta-num{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:12px}
+.pregunta-dimension{font-size:11px;font-weight:400;color:var(--texto-suave);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px}
+.pregunta-texto{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--vino);line-height:1.3;margin-bottom:40px}
+.escala-wrap{margin-bottom:48px}
+.escala-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--texto-suave);margin-bottom:12px}
+.escala-btns{display:flex;gap:10px;justify-content:center}
+.escala-btn{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(125,31,59,0.25);background:white;font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--texto-suave);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.escala-btn:hover{border-color:var(--vino);color:var(--vino);transform:scale(1.08)}
+.escala-btn.selected{background:var(--vino);border-color:var(--vino);color:white;transform:scale(1.12)}
+.nav-btns{display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:none;border:none;font-size:13px;color:var(--texto-suave);cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.05em;padding:0;text-decoration:underline}
+.btn-back:hover{color:var(--vino)}
+.pregunta-abierta{width:100%;padding:16px 20px;border:1px solid rgba(125,31,59,0.25);background:white;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--texto);resize:none;height:120px;margin-bottom:32px;outline:none;transition:border 0.2s}
+.pregunta-abierta:focus{border-color:var(--vino)}
+
+/* CAPTURA DATOS */
+.captura{padding:48px 0 64px;text-align:center}
+.captura-titulo{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--vino);margin-bottom:12px}
+.captura-sub{font-size:15px;color:var(--texto-suave);margin-bottom:36px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto}
+.campo{width:100%;padding:14px 20px;border:1px solid rgba(125,31,59,0.25);background:white;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--texto);margin-bottom:16px;outline:none;transition:border 0.2s;-webkit-appearance:none}
+.campo:focus{border-color:var(--vino)}
+.campo::placeholder{color:rgba(107,74,82,0.5)}
+.privacidad{font-size:12px;color:var(--texto-suave);margin-bottom:28px;opacity:0.7}
+
+/* RESULTADO */
+.resultado{padding:48px 0 64px;text-align:center}
+.resultado-puntaje{font-family:'Playfair Display',serif;font-size:72px;font-weight:700;color:var(--vino);line-height:1;margin-bottom:4px}
+.resultado-maximo{font-size:13px;color:var(--texto-suave);letter-spacing:0.1em;margin-bottom:32px}
+.resultado-barra-wrap{max-width:400px;margin:0 auto 32px;background:rgba(125,31,59,0.1);height:6px;border-radius:3px;overflow:hidden}
+.resultado-barra{height:100%;background:var(--cobre);border-radius:3px;transition:width 1s ease;width:0}
+.resultado-nivel{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:12px}
+.resultado-titulo{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,34px);font-weight:700;color:var(--vino);line-height:1.2;margin-bottom:20px;max-width:560px;margin-left:auto;margin-right:auto}
+.resultado-texto{font-size:15px;color:var(--texto-suave);line-height:1.9;max-width:520px;margin:0 auto 40px}
+.resultado-dimensiones{max-width:480px;margin:0 auto 48px;text-align:left}
+.dimension-row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:0.5px solid rgba(125,31,59,0.1)}
+.dimension-row:last-child{border-bottom:none}
+.dimension-nombre{font-size:13px;color:var(--texto-suave);flex:1;font-weight:400}
+.dimension-puntaje{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--vino);min-width:24px;text-align:right}
+.dimension-barra-wrap{flex:2;background:rgba(125,31,59,0.08);height:4px;border-radius:2px;overflow:hidden}
+.dimension-barra{height:100%;border-radius:2px;transition:width 1.2s ease;width:0}
+.resultado-producto{background:#F9F3F5;border:1px solid rgba(125,31,59,0.12);padding:32px 36px;max-width:520px;margin:0 auto 36px;text-align:left}
+.producto-label{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--cobre);margin-bottom:8px}
+.producto-nombre{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--vino);margin-bottom:10px}
+.producto-desc{font-size:14px;color:var(--texto-suave);line-height:1.8;margin-bottom:20px}
+.resultado-cta-sub{font-size:14px;color:var(--texto-suave);margin-top:16px;font-style:italic}
+
+footer{background:var(--vino-dark);padding:24px 40px;text-align:center}
+footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.1em}
+
+@media(max-width:600px){
+  .hero{padding:48px 24px 40px}
+  .escala-btns{gap:6px}
+  .escala-btn{width:44px;height:44px;font-size:16px}
+  .resultado-producto{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-border"></div>
+  <p class="hero-tag">Solange Henríquez · Comportamiento y Ejecución</p>
+  <h1 class="hero-name">Autodiagnóstico de Equipo</h1>
+  <div class="hero-line"></div>
+  <p class="hero-sub">¿Qué está frenando realmente a tu equipo?</p>
+</section>
+
+<div class="container">
+  <div class="steps" id="steps">
+    <div class="step-dot active" id="dot-0"></div>
+    <div class="step-dot" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+    <div class="step-dot" id="dot-4"></div>
+    <div class="step-dot" id="dot-5"></div>
+    <div class="step-dot" id="dot-6"></div>
+    <div class="step-dot" id="dot-7"></div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro">
+      <span class="intro-label">Diagnóstico gratuito</span>
+      <h2 class="intro-titulo">6 preguntas.<br>Menos de 3 minutos.<br>Mayor claridad.</h2>
+      <p class="intro-texto">Este diagnóstico está basado en el modelo de las 5 Dimensiones de un Equipo de Alta Performance de Patrick Lencioni. Confianza, Conflicto productivo, Compromiso, Responsabilidad y Resultados.</p>
+      <div class="intro-modelo">
+        <strong>Escala de respuesta:</strong><br>
+        1 = Nunca &nbsp;·&nbsp; 2 = Pocas veces &nbsp;·&nbsp; 3 = A veces &nbsp;·&nbsp; 4 = Frecuentemente &nbsp;·&nbsp; 5 = Siempre<br><br>
+        No hay respuestas correctas. Responde con honestidad.
+      </div>
+      <button class="btn" onclick="irA('screen-0')">Comenzar diagnóstico</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTAS -->
+  <div class="screen" id="screen-0">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 1 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Confianza</p>
+      <h2 class="pregunta-texto">Mi equipo reconoce sus errores y pide ayuda sin temor a ser juzgado.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-0">
+          <button class="escala-btn" onclick="seleccionar(0,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(0,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(0,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(0,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(0,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-intro')">← Volver</button>
+        <button class="btn" id="next-0" onclick="siguiente(0)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-1">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 2 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Conflicto productivo</p>
+      <h2 class="pregunta-texto">En mi equipo los desacuerdos se expresan abiertamente, no quedan guardados para después de la reunión.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-1">
+          <button class="escala-btn" onclick="seleccionar(1,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(1,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(1,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(1,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(1,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-0')">← Volver</button>
+        <button class="btn" id="next-1" onclick="siguiente(1)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-2">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 3 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Compromiso</p>
+      <h2 class="pregunta-texto">Mi equipo ejecuta los acuerdos tomados, aunque no hayan estado 100% de acuerdo con la decisión.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-2">
+          <button class="escala-btn" onclick="seleccionar(2,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(2,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(2,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(2,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(2,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-1')">← Volver</button>
+        <button class="btn" id="next-2" onclick="siguiente(2)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-3">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 4 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Responsabilidad</p>
+      <h2 class="pregunta-texto">Los problemas me llegan a tiempo, no cuando ya están fuera de control.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-3">
+          <button class="escala-btn" onclick="seleccionar(3,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(3,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(3,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(3,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(3,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-2')">← Volver</button>
+        <button class="btn" id="next-3" onclick="siguiente(3)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-4">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 5 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Resultados</p>
+      <h2 class="pregunta-texto">Mi equipo no solo hace lo que tiene que hacer. Busca activamente hacerlo mejor.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-4">
+          <button class="escala-btn" onclick="seleccionar(4,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(4,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(4,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(4,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(4,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-3')">← Volver</button>
+        <button class="btn" id="next-4" onclick="siguiente(4)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-5">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 6 de 6</p>
+      <p class="pregunta-dimension">Reflexión final</p>
+      <h2 class="pregunta-texto">Si resolvieras uno de estos patrones este año, ¿cuál tendría mayor impacto en tus resultados?</h2>
+      <textarea class="pregunta-abierta" id="respuesta-abierta" placeholder="Escribe tu respuesta aquí..."></textarea>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-4')">← Volver</button>
+        <button class="btn" onclick="irA('screen-captura')">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPTURA DE DATOS -->
+  <div class="screen" id="screen-captura">
+    <div class="captura">
+      <h2 class="captura-titulo">Ya casi está.</h2>
+      <p class="captura-sub">Déjame tu nombre y email para enviarte tu resultado completo con interpretación personalizada por dimensión.</p>
+      <input type="text" class="campo" id="nombre" placeholder="Tu nombre">
+      <input type="email" class="campo" id="email" placeholder="Tu email">
+      <p class="privacidad">Tu información es confidencial. No comparto datos con terceros.</p>
+      <button class="btn btn-cobre" onclick="verResultado()">Enviar mi resultado →</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="screen" id="screen-resultado">
+    <div class="resultado">
+      <p class="resultado-nivel" id="res-nivel"></p>
+      <div class="resultado-puntaje" id="res-puntaje"></div>
+      <p class="resultado-maximo">de 25 puntos</p>
+      <div class="resultado-barra-wrap">
+        <div class="resultado-barra" id="res-barra"></div>
+      </div>
+      <h2 class="resultado-titulo" id="res-titulo"></h2>
+      <p class="resultado-texto" id="res-texto"></p>
+
+      <div class="resultado-dimensiones" id="res-dimensiones"></div>
+
+      <div class="resultado-producto" id="res-producto"></div>
+
+      <p class="resultado-cta-sub" style="margin-bottom:20px;">¿Quieres entender mejor qué significa tu resultado y cómo podría ayudarte?</p>
+      <button class="btn" onclick="window.location.href='mailto:hola@solange-henriquez.cl?subject=Quiero conversar sobre mi diagnóstico de equipo'">Conversemos →</button>
+      <p class="resultado-cta-sub">20 minutos, sin costo, sin compromiso.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Solange Henríquez · Lo que no se ve, no cambia.</p>
+</footer>
+
+<script>
+const respuestas = [null, null, null, null, null];
+const dimensiones = [
+  {nombre: 'Confianza', impacto: 'Capacidad de pedir ayuda y reconocer errores'},
+  {nombre: 'Conflicto productivo', impacto: 'Conversaciones difíciles que no se están teniendo'},
+  {nombre: 'Compromiso', impacto: 'Ejecución real de los acuerdos'},
+  {nombre: 'Responsabilidad', impacto: 'Visibilidad de problemas a tiempo'},
+  {nombre: 'Resultados', impacto: 'Orientación activa a mejorar'}
+];
+
+function irA(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  actualizarDots(id);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function actualizarDots(screenId) {
+  const map = {'screen-intro':0,'screen-0':1,'screen-1':2,'screen-2':3,'screen-3':4,'screen-4':5,'screen-5':6,'screen-captura':7,'screen-resultado':7};
+  const current = map[screenId] || 0;
+  for (let i = 0; i < 8; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (!dot) continue;
+    dot.classList.remove('active', 'done');
+    if (i < current) dot.classList.add('done');
+    else if (i === current) dot.classList.add('active');
+  }
+}
+
+function seleccionar(pregunta, valor) {
+  respuestas[pregunta] = valor;
+  const btns = document.querySelectorAll('#escala-' + pregunta + ' .escala-btn');
+  btns.forEach((btn, i) => {
+    btn.classList.toggle('selected', i + 1 === valor);
+  });
+  const nextBtn = document.getElementById('next-' + pregunta);
+  nextBtn.style.opacity = '1';
+  nextBtn.style.pointerEvents = 'auto';
+}
+
+function siguiente(pregunta) {
+  if (respuestas[pregunta] === null) return;
+  irA('screen-' + (pregunta + 1));
+}
+
+function verResultado() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!nombre || !email) {
+    alert('Por favor completa tu nombre y email para ver el resultado.');
+    return;
+  }
+
+  const total = respuestas.reduce((a, b) => a + (b || 0), 0);
+  const respuestaAbierta = document.getElementById('respuesta-abierta').value.trim();
+
+  // Enviar a Formspree
+  fetch('https://formspree.io/f/xvznkevr', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      nombre: nombre,
+      email: email,
+      puntaje_total: total + ' / 25',
+      confianza: respuestas[0] + '/5',
+      conflicto_productivo: respuestas[1] + '/5',
+      compromiso: respuestas[2] + '/5',
+      responsabilidad: respuestas[3] + '/5',
+      resultados: respuestas[4] + '/5',
+      respuesta_abierta: respuestaAbierta || 'No respondió'
+    })
+  }).catch(err => console.log('Error Formspree:', err));
+  const porcentaje = (total / 25) * 100;
+
+  let nivel, titulo, texto, productoNombre, productoDesc;
+
+  if (total <= 14) {
+    nivel = 'Frenos invisibles';
+    titulo = 'Tu equipo tiene patrones que están frenando los resultados.';
+    texto = 'Hay disfunciones activas en una o más dimensiones clave. Esto tiene solución, pero requiere intervención directa. El primer paso es hacer visible lo que hoy no se ve.';
+    productoNombre = 'Programa de Ejecución Operacional';
+    productoDesc = 'Intervención en terreno de 9 semanas que combina observación de comportamientos, análisis de data y microintervenciones precisas que empiezan a mover los resultados desde las primeras semanas.';
+  } else if (total <= 19) {
+    nivel = 'Potencial limitado';
+    titulo = 'Tu equipo funciona, pero hay patrones que limitan su potencial.';
+    texto = 'Tienes bases, pero algo está poniendo un techo invisible a los resultados. Vale la pena identificar exactamente dónde está el nudo antes de que se vuelva más costoso.';
+    productoNombre = 'Diagnóstico Operativo de Equipos';
+    productoDesc = 'Observación directa en terreno más análisis de data operativa. Identifico las prácticas y comportamientos que los reportes no muestran y que tienen un costo invisible para tu organización.';
+  } else {
+    nivel = 'Bases sólidas';
+    titulo = 'Tu equipo tiene bases sólidas. La pregunta es cuánto más puede lograr.';
+    texto = 'Los fundamentos están bien asentados. Esto es una ventaja real. El desafío ahora es potenciar desde el liderazgo para llevar los resultados al siguiente nivel.';
+    productoNombre = 'Neurocoaching Individual';
+    productoDesc = 'Coaching basado en neurociencias aplicadas. Metodología BBCC certificada por el NeuroLeadership Institute. Cambio real desde el comportamiento del líder hacia el equipo.';
+  }
+
+  document.getElementById('res-nivel').textContent = nivel;
+  document.getElementById('res-puntaje').textContent = total;
+  document.getElementById('res-titulo').textContent = titulo;
+  document.getElementById('res-texto').textContent = texto;
+
+  document.getElementById('res-producto').innerHTML = `
+    <p class="producto-label">Lo que podría ayudarte</p>
+    <p class="producto-nombre">${productoNombre}</p>
+    <p class="producto-desc">${productoDesc}</p>
+  `;
+
+  const dimHtml = dimensiones.map((dim, i) => {
+    const val = respuestas[i] || 0;
+    const pct = (val / 5) * 100;
+    const color = val <= 2 ? '#B5803A' : val <= 3 ? '#7D1F3B' : '#1D9E75';
+    return `<div class="dimension-row">
+      <div style="flex:1">
+        <div style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--vino);margin-bottom:3px">${dim.nombre}</div>
+        <div class="dimension-nombre">${dim.impacto}</div>
+      </div>
+      <div class="dimension-barra-wrap"><div class="dimension-barra" style="width:0%;background:${color}" data-width="${pct}%"></div></div>
+      <span class="dimension-puntaje">${val}/5</span>
+    </div>`;
+  }).join('');
+  document.getElementById('res-dimensiones').innerHTML = dimHtml;
+
+  irA('screen-resultado');
+
+  setTimeout(() => {
+    document.getElementById('res-barra').style.width = porcentaje + '%';
+    document.querySelectorAll('.dimension-barra').forEach(b => {
+      b.style.width = b.dataset.width;
+    });
+  }, 100);
+}
+</script>
+</body>
+</html>
