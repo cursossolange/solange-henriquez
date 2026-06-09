@@ -1,81 +1,121 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solange Henríquez — Comportamiento y Ejecución</title>
+<title>Autodiagnóstico de Equipo — Solange Henríquez</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--vino:#7D1F3B;--vino-dark:#5C1629;--cobre:#B5803A;--crema:#F5E6EB;--blanco:#FDFAF8;--texto:#2C1A20;--texto-suave:#6B4A52}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden;min-height:100vh}
 
-.hero{background:var(--vino);padding:80px 40px 68px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}
-.hero-border{position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:0.5px solid rgba(181,128,58,0.3);pointer-events:none}
-.hero-tag{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:30px}
-.hero-name{font-family:'Playfair Display',serif;font-size:clamp(44px,6.5vw,80px);font-weight:600;color:white;line-height:1;margin-bottom:16px;letter-spacing:0.01em}
-.hero-line{width:60px;height:1px;background:var(--cobre);margin:0 auto 26px}
-.hero-promise{font-family:'Playfair Display',serif;font-size:clamp(18px,2.4vw,24px);font-weight:400;font-style:italic;color:var(--crema);max-width:540px;line-height:1.5;margin-bottom:28px}
-.hero-frase{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:var(--cobre);margin-bottom:36px;letter-spacing:0.04em}
-.hero-cta{display:inline-block;padding:14px 44px;background:var(--cobre);color:white;font-size:11px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
-.hero-cta:hover{background:white;color:var(--vino)}
+.hero{background:var(--vino);padding:60px 40px 52px;text-align:center;position:relative}
+.hero-border{position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:0.5px solid rgba(181,128,58,0.3);pointer-events:none}
+.hero-tag{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:24px}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:600;color:white;line-height:1;margin-bottom:12px}
+.hero-line{width:100px;height:2px;background:var(--cobre);margin:0 auto 24px}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,20px);font-weight:400;font-style:italic;color:var(--crema);max-width:520px;margin:0 auto;line-height:1.5;opacity:0.9}
 
-.section-label{display:block;font-family:'Playfair Display',serif;font-size:15px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--cobre);margin-bottom:20px}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4.8vw,54px);font-weight:700;color:var(--vino);line-height:1.15;margin-bottom:32px}
+.container{max-width:720px;margin:0 auto;padding:0 24px}
 
-.problema{background:var(--blanco);padding:88px 40px;text-align:center}
-.problema-recuadro{max-width:660px;margin:0 auto 40px;background:#F5EFE6;border:1px solid rgba(125,31,59,0.12);border-radius:12px;padding:8px 0}
-.problema-recuadro li{list-style:none;padding:12px 32px;text-align:left;font-size:clamp(15px,1.6vw,17px);font-weight:400;color:var(--texto);line-height:1.5}
-.problema-recuadro li strong{font-weight:600;color:var(--vino)}
-.problema-cierre{font-size:18px;font-weight:400;color:var(--texto);max-width:580px;margin:0 auto;line-height:1.8}
-.problema-cierre strong{color:var(--vino);font-weight:600}
+.steps{display:flex;justify-content:center;gap:8px;padding:32px 0 0}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(125,31,59,0.2);transition:all 0.3s}
+.step-dot.active{background:var(--vino);transform:scale(1.3)}
+.step-dot.done{background:var(--cobre)}
 
-.servicios{background:#F9F3F5;padding:88px 40px}
-.servicios-header{text-align:center;margin-bottom:54px}
-.servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.servicio-card{background:white;padding:44px 36px;position:relative;display:flex;flex-direction:column;border:1px solid rgba(125,31,59,0.1);box-shadow:0 2px 20px rgba(125,31,59,0.06);transition:transform 0.3s,box-shadow 0.3s}
-.servicio-card:hover{transform:translateY(-6px);box-shadow:0 8px 32px rgba(125,31,59,0.12)}
-.servicio-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--vino);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
-.servicio-card:hover::before{transform:scaleX(1)}
-.servicio-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:var(--crema);line-height:1;margin-bottom:16px}
-.servicio-nombre{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--vino);margin-bottom:14px;line-height:1.2}
-.servicio-problema{font-size:14px;font-weight:300;font-style:italic;color:var(--texto-suave);margin-bottom:18px;line-height:1.7;padding-bottom:18px;border-bottom:0.5px solid #E8D8DC}
-.servicio-desc{font-size:13px;font-weight:400;color:var(--texto-suave);line-height:1.9;flex:1}
-.servicio-duracion{margin-top:24px;font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--cobre)}
+.screen{display:none;animation:fadeIn 0.4s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-.filosofia{background:var(--vino-dark);padding:88px 40px;text-align:center}
-.filosofia-frase{font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,52px);font-weight:400;font-style:italic;color:white;max-width:700px;margin:0 auto 16px;line-height:1.3}
-.filosofia-linea{width:50px;height:1px;background:var(--cobre);margin:24px auto}
-.filosofia-sub{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,21px);font-weight:400;color:var(--crema);max-width:580px;margin:0 auto;line-height:1.7;opacity:0.85}
+.intro{padding:48px 0 64px;text-align:center}
+.intro-label{display:block;font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:16px}
+.intro-titulo{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--vino);line-height:1.15;margin-bottom:20px}
+.intro-texto{font-size:15px;font-weight:300;color:var(--texto-suave);line-height:1.9;max-width:560px;margin:0 auto 16px}
+.intro-modelo{font-size:13px;font-weight:400;color:var(--texto-suave);max-width:520px;margin:0 auto 36px;padding:16px 24px;border-left:2px solid var(--cobre);text-align:left;background:#F9F3F5;line-height:1.7}
+.dimensiones-explicadas{max-width:560px;margin:0 auto 36px;text-align:left}
+.dim-exp-item{padding:16px 0;border-bottom:0.5px solid rgba(125,31,59,0.1)}
+.dim-exp-item:last-child{border-bottom:none}
+.dim-exp-nombre{display:block;font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--vino);margin-bottom:6px}
+.dim-exp-texto{font-size:14px;color:var(--texto-suave);line-height:1.8}
 
-.quien{background:var(--blanco);padding:88px 40px}
-.quien-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:960px;margin:0 auto}
-.quien-foto{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block}
-.quien-der{display:flex;flex-direction:column;justify-content:center}
-.quien-titulo{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--vino);line-height:1.15;margin-bottom:20px}
-.quien-linea{width:40px;height:2px;background:var(--cobre);margin-bottom:24px}
-.quien-texto{font-size:15px;font-weight:300;color:var(--texto-suave);line-height:2;margin-bottom:16px}
-.quien-credenciales{margin-top:28px;display:flex;flex-direction:column;gap:10px}
-.credencial{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--vino);padding-left:14px;border-left:2px solid var(--cobre)}
 
-.contacto{background:var(--vino);padding:88px 40px;text-align:center}
-.contacto-titulo{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,58px);font-weight:600;color:white;margin-bottom:14px}
-.contacto-sub{font-size:15px;font-weight:300;color:var(--crema);margin-bottom:40px;opacity:0.85}
-.contacto-btn{display:inline-block;padding:16px 52px;background:var(--cobre);color:white;font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
-.contacto-btn:hover{background:white;color:var(--vino)}
-.contacto-linkedin{display:block;margin-top:22px;font-size:13px;color:rgba(245,230,235,0.55);text-decoration:none;letter-spacing:0.05em;transition:color 0.3s}
-.contacto-linkedin:hover{color:var(--cobre)}
+.btn{display:inline-block;padding:14px 48px;background:var(--vino);color:white;font-size:11px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s;font-family:'DM Sans',sans-serif}
+.btn:hover{background:var(--vino-dark)}
+.btn-cobre{background:var(--cobre)}
+.btn-cobre:hover{background:#9A6B2E}
 
-footer{background:var(--vino-dark);padding:28px 40px;text-align:center}
+.pregunta-wrap{padding:48px 0 64px}
+.pregunta-num{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:12px}
+.pregunta-dimension{font-size:11px;font-weight:400;color:var(--texto-suave);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px}
+.pregunta-texto{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--vino);line-height:1.3;margin-bottom:40px}
+.escala-wrap{margin-bottom:48px}
+.escala-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--texto-suave);margin-bottom:12px}
+.escala-btns{display:flex;gap:10px;justify-content:center}
+.escala-btn{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(125,31,59,0.25);background:white;font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--texto-suave);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.escala-btn:hover{border-color:var(--vino);color:var(--vino);transform:scale(1.08)}
+.escala-btn.selected{background:var(--vino);border-color:var(--vino);color:white;transform:scale(1.12)}
+.nav-btns{display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:none;border:none;font-size:13px;color:var(--texto-suave);cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.05em;padding:0;text-decoration:underline}
+.btn-back:hover{color:var(--vino)}
+.pregunta-abierta{width:100%;padding:16px 20px;border:1px solid rgba(125,31,59,0.25);background:white;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--texto);resize:none;height:120px;margin-bottom:32px;outline:none;transition:border 0.2s}
+.pregunta-abierta:focus{border-color:var(--vino)}
+
+.captura{padding:48px 0 64px;text-align:center}
+.captura-titulo{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--vino);margin-bottom:12px}
+.captura-sub{font-size:15px;color:var(--texto-suave);margin-bottom:36px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto}
+.campo{width:100%;padding:14px 20px;border:1px solid rgba(125,31,59,0.25);background:white;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--texto);margin-bottom:16px;outline:none;transition:border 0.2s;-webkit-appearance:none}
+.campo:focus{border-color:var(--vino)}
+.campo::placeholder{color:rgba(107,74,82,0.5)}
+.privacidad{font-size:12px;color:var(--texto-suave);margin-bottom:28px;opacity:0.7}
+
+.resultado{padding:48px 0 64px;text-align:center}
+.resultado-puntaje{font-family:'Playfair Display',serif;font-size:72px;font-weight:700;color:var(--vino);line-height:1;margin-bottom:4px}
+.resultado-maximo{font-size:13px;color:var(--texto-suave);letter-spacing:0.1em;margin-bottom:32px}
+.resultado-barra-wrap{max-width:400px;margin:0 auto 32px;background:rgba(125,31,59,0.1);height:6px;border-radius:3px;overflow:hidden}
+.resultado-barra{height:100%;background:var(--cobre);border-radius:3px;transition:width 1s ease;width:0}
+.resultado-nivel{font-size:11px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:12px}
+.resultado-titulo{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,34px);font-weight:700;color:var(--vino);line-height:1.2;margin-bottom:20px;max-width:560px;margin-left:auto;margin-right:auto}
+.resultado-texto{font-size:15px;color:var(--texto-suave);line-height:1.9;max-width:520px;margin:0 auto 40px}
+
+.resultado-dimensiones{max-width:560px;margin:0 auto 48px;text-align:left}
+.dim-section-label{font-size:11px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--cobre);margin-bottom:8px;text-align:center}
+.dim-section-nota{font-size:13px;color:var(--texto-suave);font-style:italic;text-align:center;margin-bottom:24px;line-height:1.6}
+.dimension-card{padding:20px 24px;margin-bottom:12px;border:1px solid rgba(125,31,59,0.1);background:white}
+.dimension-card.alerta{border-left:3px solid var(--cobre);background:#FDFAF8}
+.dimension-card.solida{border-left:3px solid #1D9E75;background:#F8FDFB}
+.dim-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.dim-nombre{font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--vino)}
+.dim-score{font-family:'Playfair Display',serif;font-size:20px;font-weight:600}
+.dim-score.alerta{color:var(--cobre)}
+.dim-score.solida{color:#1D9E75}
+.dim-barra-wrap{background:rgba(125,31,59,0.08);height:3px;border-radius:2px;overflow:hidden;margin-bottom:12px}
+.dim-barra{height:100%;border-radius:2px;transition:width 1.2s ease;width:0}
+.dim-costo{font-size:13px;color:var(--texto-suave);line-height:1.7;font-style:italic;margin-bottom:10px}
+.dim-practica-label{font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--cobre);margin-bottom:6px}
+.dim-accionable{font-size:13px;color:var(--texto);line-height:1.7;padding:12px 14px;border-left:2px solid var(--cobre);background:#FBF6F0}
+
+.resultado-producto{background:#F9F3F5;border:1px solid rgba(125,31,59,0.12);padding:32px 36px;max-width:520px;margin:0 auto 36px;text-align:left}
+.producto-label{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--cobre);margin-bottom:8px}
+.producto-nombre{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--vino);margin-bottom:10px}
+.producto-desc{font-size:14px;color:var(--texto-suave);line-height:1.8}
+
+.cta-bloque{text-align:center;max-width:480px;margin:0 auto;padding:0 0 16px}
+.cta-titulo{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:600;color:var(--vino);margin-bottom:10px;line-height:1.3}
+.cta-sub{font-size:14px;color:var(--texto-suave);margin-bottom:24px;line-height:1.7}
+.cta-nota{font-size:13px;color:var(--texto-suave);margin-top:14px;font-style:italic;opacity:0.8}
+
+footer{background:var(--vino-dark);padding:24px 40px;text-align:center}
 footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.1em}
 
-@media(max-width:900px){
-  .servicios-grid{grid-template-columns:1fr}
-  .quien-inner{grid-template-columns:1fr;gap:36px}
-  .quien-foto{aspect-ratio:4/3;max-height:340px}
-  .hero{padding:60px 24px 52px}
-  .problema,.servicios,.quien{padding:60px 24px}
+@media(max-width:600px){
+  .hero{padding:48px 24px 40px}
+  .escala-btns{gap:6px}
+  .escala-btn{width:44px;height:44px;font-size:16px}
+  .resultado-producto{padding:24px 20px}
+  .dimension-card{padding:16px 18px}
 }
 </style>
 </head>
@@ -83,94 +123,409 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.1em}
 
 <section class="hero">
   <div class="hero-border"></div>
-  <p class="hero-tag">Comportamiento · Ejecución · Resultados</p>
-  <h1 class="hero-name">Solange Henríquez</h1>
+  <p class="hero-tag">Solange Henríquez · Comportamiento y Ejecución</p>
+  <h1 class="hero-name">Autodiagnóstico de Equipo</h1>
   <div class="hero-line"></div>
-  <p class="hero-promise">Mejoro resultados de equipos desde el comportamiento y la ejecución</p>
-  <p class="hero-frase">Lo que no se ve, no cambia.</p>
-  <a href="#servicios" class="hero-cta">Ver cómo trabajo</a>
+  <p class="hero-sub">¿Qué está frenando realmente a tu equipo?</p>
 </section>
 
-<section class="problema">
-  <span class="section-label">El problema real</span>
-  <h2 class="section-title" style="max-width:700px;margin-left:auto;margin-right:auto">El problema no son los resultados.<br>Es lo que los produce.</h2>
-  <ul class="problema-recuadro">
-    <li><strong>Miedo a equivocarse</strong> que paraliza decisiones</li>
-    <li><strong>Urgencia permanente</strong> que impide pensar</li>
-    <li><strong>Esperar validación</strong> del jefe antes de actuar</li>
-    <li><strong>Evitar el conflicto</strong> y dejar pasar lo que debería corregirse</li>
-    <li><strong>Reuniones que reemplazan</strong> la acción</li>
-    <li><strong>Acuerdo en la sala,</strong> desacuerdo en el pasillo</li>
-    <li><strong>Repetir lo mismo</strong> esperando resultados distintos</li>
-  </ul>
-  <p class="problema-cierre">Mientras todos miran los reportes, <strong>yo miro los comportamientos y las prácticas de los equipos.</strong> Ahí es donde está la palanca real.</p>
-</section>
-
-<section class="servicios" id="servicios">
-  <div class="servicios-header">
-    <span class="section-label">Cómo puedo ayudarte</span>
-    <h2 class="section-title">Tres formas de trabajar juntos</h2>
+<div class="container">
+  <div class="steps" id="steps">
+    <div class="step-dot active" id="dot-0"></div>
+    <div class="step-dot" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+    <div class="step-dot" id="dot-4"></div>
+    <div class="step-dot" id="dot-5"></div>
+    <div class="step-dot" id="dot-6"></div>
+    <div class="step-dot" id="dot-7"></div>
   </div>
-  <div class="servicios-grid">
-    <div class="servicio-card">
-      <div class="servicio-num">01</div>
-      <h3 class="servicio-nombre">Diagnóstico Operativo de Equipos</h3>
-      <p class="servicio-problema">Algo frena a tu equipo y no sabes exactamente qué.</p>
-      <p class="servicio-desc">Observación directa en terreno + análisis de data operativa. Identifico las prácticas y comportamientos que los reportes no muestran y que tienen un costo invisible para tu organización.</p>
-      <span class="servicio-duracion">4 semanas</span>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-num">02</div>
-      <h3 class="servicio-nombre">Programa de Ejecución Operacional</h3>
-      <p class="servicio-problema">Tu equipo sabe qué hacer, pero los resultados no llegan.</p>
-      <p class="servicio-desc">Intervención en terreno que combina observación de comportamientos, datos operacionales y dinámicas relacionales. Microintervenciones, alto impacto.</p>
-      <span class="servicio-duracion">9 semanas</span>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-num">03</div>
-      <h3 class="servicio-nombre">Neurocoaching Individual</h3>
-      <p class="servicio-problema">Quieres cambiar tus resultados, pero no sabes por dónde empezar.</p>
-      <p class="servicio-desc">Coaching basado en neurociencias aplicadas. Metodología BBCC certificada por el NeuroLeadership Institute. Cambio real desde el comportamiento.</p>
+
+  <!-- INTRO -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro">
+      <span class="intro-label">Diagnóstico de equipo</span>
+      <h2 class="intro-titulo">6 preguntas.<br>Menos de 3 minutos.<br>Mayor claridad.</h2>
+      <p class="intro-texto">Este diagnóstico está basado en el modelo de las 5 Dimensiones de un Equipo de Alta Performance de Patrick Lencioni.</p>
+
+      <div class="dimensiones-explicadas" id="dimensiones-explicadas">
+        <div class="dim-exp-item">
+          <span class="dim-exp-nombre">Confianza</span>
+          <p class="dim-exp-texto">Es la base de todo. Un equipo con confianza real no oculta errores ni debilidades, pide ayuda cuando la necesita y asume riesgos sin miedo a ser juzgado. Sin confianza, la energía del equipo se focaliza en protegerse, no en avanzar.</p>
+        </div>
+        <div class="dim-exp-item">
+          <span class="dim-exp-nombre">Conflicto productivo</span>
+          <p class="dim-exp-texto">Los equipos que funcionan bien no evitan el desacuerdo, lo usan. Las mejores decisiones nacen de debates honestos donde cada persona dice lo que realmente piensa. Cuando el conflicto se evita, los desacuerdos no desaparecen, se desplazan al pasillo.</p>
+        </div>
+        <div class="dim-exp-item">
+          <span class="dim-exp-nombre">Compromiso</span>
+          <p class="dim-exp-texto">Todos ejecutan los acuerdos definidos poniendo el foco en el objetivo buscado, más allá de las diferencias individuales.</p>
+        </div>
+        <div class="dim-exp-item">
+          <span class="dim-exp-nombre">Responsabilidad</span>
+          <p class="dim-exp-texto">En un equipo de alta performance, los estándares no los sostiene solo el líder. Los propios miembros se exigen entre sí, se dicen las cosas con respeto y no esperan a que sea el jefe quien corrija. Eso es lo que hace al equipo verdaderamente autónomo.</p>
+        </div>
+        <div class="dim-exp-item">
+          <span class="dim-exp-nombre">Resultados</span>
+          <p class="dim-exp-texto">Un equipo orientado a resultados no solo cumple, busca activamente hacerlo mejor. Pone los objetivos colectivos por encima de los individuales y no se conforma con el mínimo. Cuando esta dimensión es fuerte, el equipo no necesita que lo empujen.</p>
+        </div>
+      </div>
+
+      <div class="intro-modelo">
+        <strong>Escala de respuesta:</strong><br>
+        1 = Nunca &nbsp;·&nbsp; 2 = Pocas veces &nbsp;·&nbsp; 3 = A veces &nbsp;·&nbsp; 4 = Frecuentemente &nbsp;·&nbsp; 5 = Siempre<br><br>
+        No hay respuestas correctas. Responde con honestidad.
+      </div>
+      <button class="btn" onclick="irA('screen-0')">Comenzar autodiagnóstico</button>
     </div>
   </div>
-</section>
 
-<section class="filosofia">
-  <p class="filosofia-frase">"Lo que no se ve, no cambia."</p>
-  <div class="filosofia-linea"></div>
-  <p class="filosofia-sub">Y lo que no cambia le cuesta a tu equipo y a tu empresa más de lo que crees. Pasé años aprendiendo a ver ese patrón — y a intervenir en él.</p>
-</section>
-
-<section class="quien" id="quien">
-  <div class="quien-inner">
-    <img src="solange_foto.png" alt="Solange Henríquez" class="quien-foto">
-    <div class="quien-der">
-      <span class="section-label">Quién soy</span>
-      <h2 class="quien-titulo">Veo lo que los reportes no muestran.</h2>
-      <div class="quien-linea"></div>
-      <p class="quien-texto">Pasé más de 20 años trabajando en el mundo corporativo, liderando operaciones comerciales en una industria de alta exigencia, con equipos de primera línea y presión de resultados todos los días.</p>
-      <p class="quien-texto">Durante ese proceso aprendí que muchas veces las soluciones están en lo que no vemos. La mejora de los resultados casi nunca es un problema de estrategia. La mayoría de las veces es de ejecución y no de grandes procesos. Son comportamientos, patrones y prácticas que llevan tanto tiempo instalados que ya se volvieron invisibles.</p>
-      <p class="quien-texto">La experiencia me enseñó que cuando quieres cambiar algo, lo mejor es ir a verlo y vivirlo. Estar en terreno, observar con mirada fresca, y trabajar desde ahí.</p>
-      <p class="quien-texto">Hoy acompaño a líderes y equipos a resolver lo que aprendí a resolver. Porque el problema casi nunca está donde todos miran.</p>
-      <div class="quien-credenciales">
-        <span class="credencial">Especialista en Comportamiento y Ejecución de Equipos</span>
-        <span class="credencial">+20 años en Retail y Servicios</span>
-        <span class="credencial">Coach certificada · NeuroLeadership Institute (NLI)</span>
+  <!-- PREGUNTAS -->
+  <div class="screen" id="screen-0">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 1 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Confianza</p>
+      <h2 class="pregunta-texto">Mi equipo reconoce sus errores y pide ayuda sin temor a ser juzgado.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-0">
+          <button class="escala-btn" onclick="seleccionar(0,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(0,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(0,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(0,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(0,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-intro')">← Volver</button>
+        <button class="btn" id="next-0" onclick="siguiente(0)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
       </div>
     </div>
   </div>
-</section>
 
-<section class="contacto" id="contacto">
-  <h2 class="contacto-titulo">Conversemos.</h2>
-  <p class="contacto-sub">Si esto resuena con algo que estás viviendo en tu organización, escríbeme.</p>
-  <a href="mailto:s.henriquez.castets@gmail.com" class="contacto-btn">Escribir a Solange</a>
-  <a href="https://www.linkedin.com/in/solange-henriquez-castets/" target="_blank" class="contacto-linkedin">linkedin.com/in/solange-henriquez-castets</a>
-</section>
+  <div class="screen" id="screen-1">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 2 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Conflicto productivo</p>
+      <h2 class="pregunta-texto">En mi equipo los desacuerdos se expresan abiertamente, no quedan guardados para después de la reunión.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-1">
+          <button class="escala-btn" onclick="seleccionar(1,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(1,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(1,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(1,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(1,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-0')">← Volver</button>
+        <button class="btn" id="next-1" onclick="siguiente(1)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-2">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 3 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Compromiso</p>
+      <h2 class="pregunta-texto">Mi equipo ejecuta los acuerdos tomados, aunque no hayan estado 100% de acuerdo con la decisión.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-2">
+          <button class="escala-btn" onclick="seleccionar(2,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(2,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(2,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(2,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(2,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-1')">← Volver</button>
+        <button class="btn" id="next-2" onclick="siguiente(2)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-3">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 4 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Responsabilidad</p>
+      <h2 class="pregunta-texto">Los problemas me llegan a tiempo, no cuando ya están fuera de control.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-3">
+          <button class="escala-btn" onclick="seleccionar(3,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(3,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(3,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(3,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(3,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-2')">← Volver</button>
+        <button class="btn" id="next-3" onclick="siguiente(3)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-4">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 5 de 6</p>
+      <p class="pregunta-dimension">Dimensión: Resultados</p>
+      <h2 class="pregunta-texto">Mi equipo no solo hace lo que tiene que hacer. Busca activamente hacerlo mejor.</h2>
+      <div class="escala-wrap">
+        <div class="escala-labels"><span>Nunca</span><span>Siempre</span></div>
+        <div class="escala-btns" id="escala-4">
+          <button class="escala-btn" onclick="seleccionar(4,1)">1</button>
+          <button class="escala-btn" onclick="seleccionar(4,2)">2</button>
+          <button class="escala-btn" onclick="seleccionar(4,3)">3</button>
+          <button class="escala-btn" onclick="seleccionar(4,4)">4</button>
+          <button class="escala-btn" onclick="seleccionar(4,5)">5</button>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-3')">← Volver</button>
+        <button class="btn" id="next-4" onclick="siguiente(4)" style="opacity:0.4;pointer-events:none">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-5">
+    <div class="pregunta-wrap">
+      <p class="pregunta-num">Pregunta 6 de 6</p>
+      <p class="pregunta-dimension">Reflexión final</p>
+      <h2 class="pregunta-texto">Si resolvieras uno de estos patrones este año, ¿cuál tendría mayor impacto en tus resultados?</h2>
+      <textarea class="pregunta-abierta" id="respuesta-abierta" placeholder="Escribe tu respuesta aquí..."></textarea>
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irA('screen-4')">← Volver</button>
+        <button class="btn" onclick="irA('screen-captura')">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPTURA DE DATOS -->
+  <div class="screen" id="screen-captura">
+    <div class="captura">
+      <h2 class="captura-titulo">Ya casi está.</h2>
+      <p class="captura-sub">Déjame tus datos para enviarte tu resultado con una lectura por cada dimensión.</p>
+      <input type="text" class="campo" id="nombre" placeholder="Tu nombre">
+      <input type="text" class="campo" id="empresa" placeholder="Tu empresa">
+      <input type="email" class="campo" id="email" placeholder="Tu email corporativo">
+      <select class="campo" id="colaboradores">
+        <option value="" disabled selected>Número de colaboradores directos</option>
+        <option value="1-5">1 a 5</option>
+        <option value="6-25">6 a 25</option>
+        <option value="26-45">26 a 45</option>
+        <option value="más de 45">Más de 45</option>
+      </select>
+      <p class="privacidad">Tu información es confidencial. No comparto datos con terceros.</p>
+      <button class="btn btn-cobre" onclick="verResultado()">Ver mi resultado →</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="screen" id="screen-resultado">
+    <div class="resultado">
+      <p class="resultado-nivel" id="res-nivel"></p>
+      <div class="resultado-puntaje" id="res-puntaje"></div>
+      <p class="resultado-maximo">de 25 puntos</p>
+      <div class="resultado-barra-wrap">
+        <div class="resultado-barra" id="res-barra"></div>
+      </div>
+      <h2 class="resultado-titulo" id="res-titulo"></h2>
+      <p class="resultado-texto" id="res-texto"></p>
+
+      <div class="resultado-dimensiones" id="res-dimensiones"></div>
+
+      <div class="cta-bloque">
+        <h3 class="cta-titulo" id="cta-titulo"></h3>
+        <p class="cta-sub">Si quieres profundizar en estos resultados o en los desafíos de tu equipo, escríbeme y agendamos una conversación de 20 minutos.</p>
+        <button class="btn" onclick="window.location.href=document.getElementById('cta-mailto').value">Conversemos →</button>
+        <input type="hidden" id="cta-mailto" value="">
+        <p class="cta-nota">hola@solange-henriquez.cl</p>
+        <div style="margin-top:32px;padding-top:24px;border-top:0.5px solid rgba(125,31,59,0.1);text-align:center">
+          <button class="btn" style="background:transparent;border:1.5px solid var(--vino);color:var(--vino);font-size:10px;" onclick="irA('screen-intro');setTimeout(()=>{document.getElementById('dimensiones-explicadas').scrollIntoView({behavior:'smooth'})},400)">Ver dimensiones →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <p>© 2026 Solange Henríquez · Lo que no se ve, no cambia.</p>
 </footer>
 
+<script>
+const respuestas = [null, null, null, null, null];
+
+const dimensiones = [
+  {
+    nombre: 'Confianza',
+    alerta_costo: 'Cuando la confianza está baja, el equipo protege antes de actuar. Los errores se ocultan, la ayuda no se pide y las decisiones se ralentizan.',
+    alerta_practica: 'En tu próxima reunión, comparte algo que no salió como esperabas, algo tuyo, no del equipo. Muestra cómo lo procesaste y qué aprendiste. El equipo calibra su apertura mirando al líder.',
+    solida_texto: 'Tienes una base real. La confianza es la dimensión más difícil de construir y la primera en deteriorarse bajo presión. Vale la pena preguntarse: ¿el equipo se abre igual cuando las cosas van mal que cuando van bien?'
+  },
+  {
+    nombre: 'Conflicto productivo',
+    alerta_costo: 'Lo que no se dice en la reunión aparece después como desgaste, decisiones tibias o resistencia pasiva.',
+    alerta_practica: 'Haz una lista de los 2 o 3 temas que tu equipo evita hablar directamente. Lleva uno a la próxima reunión y ábrelo tú primero: "Quiero que conversemos algo que creo que no hemos nombrado."',
+    solida_texto: 'Que los desacuerdos se expresen abiertamente es más raro de lo que parece. La pregunta es si esas conversaciones difíciles llegan a decisiones claras, o se quedan en el debate.'
+  },
+  {
+    nombre: 'Compromiso',
+    alerta_costo: 'Si las personas no sienten que su opinión fue escuchada antes de decidir, difícilmente se comprometen con la decisión. El acuerdo en la sala se diluye en la semana.',
+    alerta_practica: 'Al cerrar un acuerdo, pide que cada persona exprese en voz alta si está de acuerdo o no. No para debatir de nuevo, para que el compromiso sea explícito y no se asuma.',
+    solida_texto: 'Ejecutar acuerdos aunque no se estuvo de acuerdo es una señal de madurez de equipo. El riesgo es que si otras dimensiones están bajas, este puntaje puede deteriorarse sin que nadie lo note.'
+  },
+  {
+    nombre: 'Responsabilidad',
+    alerta_costo: 'Cuando los problemas llegan tarde, el equipo ya tomó decisiones sobre ellos. El líder pierde capacidad de actuar antes de que el daño esté hecho.',
+    alerta_practica: 'Una vez a la semana, 10 minutos: cada persona dice qué avanzó y qué lo está frenando. No te reportan a ti, lo comparten en equipo. Cuando todos saben dónde están los nudos, la responsabilidad empieza a ser compartida.',
+    solida_texto: 'Que el equipo se exija entre sí sin esperar que lo hagas tú es una señal de madurez real. Vale la pena entender qué lo sostiene, porque cuando cambia el contexto o la presión aumenta, suele ser lo primero que se erosiona.'
+  },
+  {
+    nombre: 'Resultados',
+    alerta_costo: 'Cuando el equipo solo hace lo que se le pide, suele haber algo que frena la iniciativa: miedo a equivocarse, falta de claridad o la sensación de que el esfuerzo extra no es valorado.',
+    alerta_practica: 'Una vez al mes, cada persona lleva una hipótesis de mejora a la reunión: "Creo que si cambiamos X, lograríamos Y." El líder escucha, no evalúa todavía.',
+    solida_texto: 'Que el equipo busque activamente hacerlo mejor es la dimensión de mayor impacto en el largo plazo. Vale la pena preguntarse si esa orientación es colectiva, o depende de una o dos personas que movilizan al resto. Cuando es lo segundo, es más frágil de lo que parece.'
+  }
+];
+
+function irA(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  actualizarDots(id);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function actualizarDots(screenId) {
+  const map = {'screen-intro':0,'screen-0':1,'screen-1':2,'screen-2':3,'screen-3':4,'screen-4':5,'screen-5':6,'screen-captura':7,'screen-resultado':7};
+  const current = map[screenId] || 0;
+  for (let i = 0; i < 8; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (!dot) continue;
+    dot.classList.remove('active', 'done');
+    if (i < current) dot.classList.add('done');
+    else if (i === current) dot.classList.add('active');
+  }
+}
+
+function seleccionar(pregunta, valor) {
+  respuestas[pregunta] = valor;
+  const btns = document.querySelectorAll('#escala-' + pregunta + ' .escala-btn');
+  btns.forEach((btn, i) => btn.classList.toggle('selected', i + 1 === valor));
+  const nextBtn = document.getElementById('next-' + pregunta);
+  nextBtn.style.opacity = '1';
+  nextBtn.style.pointerEvents = 'auto';
+}
+
+function siguiente(pregunta) {
+  if (respuestas[pregunta] === null) return;
+  irA('screen-' + (pregunta + 1));
+}
+
+function verResultado() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const colaboradores = document.getElementById('colaboradores').value;
+  if (!nombre || !empresa || !email || !colaboradores) {
+    alert('Por favor completa todos los campos para ver el resultado.');
+    return;
+  }
+
+  const total = respuestas.reduce((a, b) => a + (b || 0), 0);
+  const respuestaAbierta = document.getElementById('respuesta-abierta').value.trim();
+
+  fetch('https://formspree.io/f/xvznkevr', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      nombre, empresa, email,
+      colaboradores_directos: colaboradores,
+      puntaje_total: total + ' / 25',
+      confianza: respuestas[0] + '/5',
+      conflicto_productivo: respuestas[1] + '/5',
+      compromiso: respuestas[2] + '/5',
+      responsabilidad: respuestas[3] + '/5',
+      resultados: respuestas[4] + '/5',
+      respuesta_abierta: respuestaAbierta || 'No respondió'
+    })
+  }).catch(err => console.log('Error Formspree:', err));
+
+  const porcentaje = (total / 25) * 100;
+
+  let nivel, titulo, texto, productoNombre, productoDesc, ctaTitulo, ctaSub;
+
+  if (total <= 14) {
+    nivel = 'Frenos invisibles';
+    titulo = 'Hay patrones activos que están frenando a tu equipo.';
+    texto = 'Una o más dimensiones están en zona de alerta. Lo que ves en los resultados es la consecuencia, no la causa. El primer paso es hacer visible lo que hoy no se ve.';
+    productoNombre = 'Programa de Ejecución Operacional';
+    productoDesc = 'Intervención de 9 semanas en terreno: observación de comportamientos, análisis de data operativa y microintervenciones precisas. Los cambios empiezan a ser visibles desde las primeras semanas.';
+    ctaTitulo = 'Hay más debajo de estos puntajes.';
+    ctaSub = 'En 20 minutos puedo darte una lectura de qué suele estar detrás de este perfil y qué preguntas haría yo antes de intervenir.';
+  } else if (total <= 19) {
+    nivel = 'Potencial limitado';
+    titulo = 'Tu equipo funciona, pero algo está poniendo un techo.';
+    texto = 'Tienes bases, pero al menos una dimensión está limitando lo que el equipo puede lograr. Identificar exactamente dónde está el nudo vale más que cualquier solución genérica.';
+    productoNombre = 'Diagnóstico Operativo de Equipos';
+    productoDesc = 'Observación directa en terreno más análisis de data operativa en 4 semanas. Identifico las prácticas y comportamientos que los reportes no muestran, con un informe de hallazgos y recomendaciones concretas.';
+    ctaTitulo = 'Lo que limita a tu equipo casi nunca es lo que parece.';
+    ctaSub = 'En 20 minutos te cuento qué suele estar debajo de este perfil y qué buscaría yo en terreno para confirmarlo.';
+  } else {
+    nivel = 'Bases sólidas';
+    titulo = 'Tu equipo tiene bases sólidas. La pregunta es cuánto más puede lograr.';
+    texto = 'Los fundamentos están bien asentados. Eso es real y es una ventaja. El siguiente nivel depende del liderazgo, no del equipo.';
+    productoNombre = 'Neurocoaching Individual';
+    productoDesc = 'Coaching basado en neurociencias aplicadas, metodología BBCC certificada por el NeuroLeadership Institute. Para líderes que quieren llevar a su equipo al siguiente nivel desde su propio comportamiento.';
+    ctaTitulo = 'Las bases están. El siguiente movimiento es tuyo.';
+    ctaSub = 'En 20 minutos te cuento qué observo en este perfil y qué conversación vale la pena tener con tu equipo antes de dar el siguiente paso.';
+  }
+
+  document.getElementById('res-nivel').textContent = nivel;
+  document.getElementById('res-puntaje').textContent = total;
+  document.getElementById('res-titulo').textContent = titulo;
+  document.getElementById('res-texto').textContent = texto;
+  document.getElementById('cta-titulo').textContent = ctaTitulo;
+  document.getElementById('cta-mailto').value = 'mailto:hola@solange-henriquez.cl?subject=Quiero conversar sobre mi diagnóstico (' + total + '/25)&body=Hola Solange, hice el autodiagnóstico y me gustaría conversar sobre mi resultado.';
+
+  const hayAlertas = respuestas.some(r => (r || 0) <= 3);
+
+  const dimHtml =
+    `<p class="dim-section-label">Tu resultado por dimensión</p>
+     <p class="dim-section-nota">Estas prácticas son un punto de partida. Lo específico para tu equipo se diseña en terreno.</p>` +
+    dimensiones.map((dim, i) => {
+      const val = respuestas[i] || 0;
+      const pct = (val / 5) * 100;
+      const esAlerta = val <= 3;
+      const color = esAlerta ? '#B5803A' : '#1D9E75';
+      const clase = esAlerta ? 'alerta' : 'solida';
+      const contenido = esAlerta
+        ? `<p class="dim-costo">${dim.alerta_costo}</p>
+           <p class="dim-practica-label">Una práctica concreta</p>
+           <p class="dim-accionable">${dim.alerta_practica}</p>`
+        : `<p class="dim-costo">${dim.solida_texto}</p>`;
+      return `<div class="dimension-card ${clase}">
+        <div class="dim-header">
+          <span class="dim-nombre">${dim.nombre}</span>
+          <span class="dim-score ${clase}">${val}/5</span>
+        </div>
+        <div class="dim-barra-wrap"><div class="dim-barra" style="width:0%;background:${color}" data-width="${pct}%"></div></div>
+        ${contenido}
+      </div>`;
+    }).join('');
+
+  document.getElementById('res-dimensiones').innerHTML = dimHtml;
+
+  irA('screen-resultado');
+
+  setTimeout(() => {
+    document.getElementById('res-barra').style.width = porcentaje + '%';
+    document.querySelectorAll('.dim-barra').forEach(b => { b.style.width = b.dataset.width; });
+  }, 100);
+}
+</script>
 </body>
 </html>
