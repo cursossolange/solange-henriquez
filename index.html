@@ -54,7 +54,8 @@ h1,h2,h3{font-family:'Sora',sans-serif}
 .servicio-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--vino);transition:height 0.4s}
 .servicio-card:hover::before{height:100%}
 .servicio-card.destacado{background:#FBF0F4}
-.servicio-problema{font-size:14px;font-weight:300;font-style:italic;color:var(--texto-suave);margin-bottom:auto;line-height:1.7;padding-bottom:18px;border-bottom:0.5px solid #E8D8DC}
+.servicio-problema{font-size:14.5px;font-weight:600;font-style:normal;color:var(--texto);margin-bottom:10px;line-height:1.7}
+.servicio-solucion{font-size:14px;font-weight:500;color:var(--vino);line-height:1.75;margin-bottom:auto;padding-bottom:18px;border-bottom:0.5px solid #E8D8DC}
 .servicio-tag{display:inline-block;margin-top:18px;font-size:12px;font-weight:500;letter-spacing:0.04em;color:var(--acento-fuerte);border:0.5px solid var(--acento-fuerte);padding:5px 14px;border-radius:3px;align-self:flex-start}
 .servicio-num{font-family:'Sora',sans-serif;font-size:42px;font-weight:700;color:var(--crema);line-height:1;margin-bottom:16px}
 .servicio-nombre{font-size:21px;font-weight:600;color:var(--vino);margin-bottom:14px;line-height:1.2}
@@ -68,7 +69,7 @@ h1,h2,h3{font-family:'Sora',sans-serif}
 .servicio-toggle .plus{font-size:18px;font-weight:400;line-height:1;transition:transform 0.3s}
 .servicio-card.expandido .servicio-toggle .plus{transform:rotate(45deg)}
 .servicio-detalle{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
-.servicio-card.expandido .servicio-detalle{max-height:400px}
+.servicio-card.expandido .servicio-detalle{max-height:1000px}
 .servicio-detalle-inner{padding-top:14px}
 .detalle-bloque{margin-bottom:16px}
 .detalle-bloque:last-child{margin-bottom:0}
@@ -226,7 +227,8 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
     <div class="servicio-card" id="card-01">
       <div class="servicio-num">01</div>
       <h3 class="servicio-nombre">Diagnóstico Operativo de Equipos</h3>
-      <p class="servicio-problema">Tu equipo no está cumpliendo las metas y no tienes claridad por dónde empezar para mejorar el resultado.</p>
+      <p class="servicio-problema">“No sé qué está frenando los resultados de mi equipo, ni por dónde empezar.”</p>
+      <p class="servicio-solucion">→ En 4 semanas tienes un mapa de iniciativas priorizado por impacto, con los quick wins listos para implementar de inmediato.</p>
       <span class="servicio-tag">5 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-01').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
@@ -235,7 +237,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
         <div class="servicio-detalle-inner">
           <div class="detalle-bloque">
             <span class="detalle-label">Objetivo</span>
-            <p class="detalle-texto">Identificar las problemáticas que más impactan el resultado y priorizarlas.</p>
+            <p class="detalle-texto">Un mapa claro de las problemáticas que más frenan tu resultado, priorizado por impacto.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Lo que hacemos</span>
@@ -251,7 +253,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Entregable</span>
-            <p class="detalle-texto">Hoja de ruta con intervenciones ordenadas por impacto.</p>
+            <p class="detalle-texto">Semana 4: mapa de iniciativas de corto plazo priorizadas por impacto (quick wins). Semana 5: consolidación final con backlog de iniciativas de mediano plazo.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Equipo consultor</span>
@@ -264,7 +266,8 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
     <div class="servicio-card destacado" id="card-02">
       <div class="servicio-num">02</div>
       <h3 class="servicio-nombre">Programa de Ejecución Operacional</h3>
-      <p class="servicio-problema">Tienes claridad de tu indicador y los problemas a abordar, pero necesitas que el cambio ocurra rápido y sin desgastar a tu equipo.</p>
+      <p class="servicio-problema">“Ya sé qué hay que cambiar, pero necesito que ocurra rápido y sin desgastar a mi equipo.”</p>
+      <p class="servicio-solucion">→ Diseñamos, implementamos y medimos microintervenciones en terreno junto a tu equipo: el cambio queda ejecutado, no solo planificado.</p>
       <span class="servicio-tag">10 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-02').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
@@ -273,7 +276,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
         <div class="servicio-detalle-inner">
           <div class="detalle-bloque">
             <span class="detalle-label">Objetivo</span>
-            <p class="detalle-texto">Ejecutar las intervenciones priorizadas y movilizar el resultado en el corto plazo.</p>
+            <p class="detalle-texto">Tu equipo ejecutando los cambios priorizados, con resultados medibles en el corto plazo.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Lo que hacemos</span>
@@ -302,7 +305,8 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
     <div class="servicio-card" id="card-03">
       <div class="servicio-num">03</div>
       <h3 class="servicio-nombre">Entrenamiento de Equipos</h3>
-      <p class="servicio-problema">Necesitas mejorar y sostener una competencia clave en tu equipo.</p>
+      <p class="servicio-problema">“Mi equipo mejoró, pero necesito que sostenga el cambio en el tiempo.”</p>
+      <p class="servicio-solucion">→ Instalamos la competencia con talleres, aplicación en terreno y coaching, para que se sostenga en la práctica real, no solo en la capacitación.</p>
       <span class="servicio-tag">4 a 6 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-03').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
