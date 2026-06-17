@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solange Henríquez — Comportamiento y Ejecución</title>
+<title>Solange Henríquez, Comportamiento y Ejecución</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -30,6 +30,7 @@ h1,h2,h3{font-family:'Sora',sans-serif}
 .problema-ejemplos{max-width:680px;margin:40px auto 0;text-align:left;display:flex;flex-direction:column;gap:14px}
 .problema-ejemplo{background:#F4F2EF;border-radius:8px;padding:20px 24px}
 .problema-ejemplo-titulo{font-family:'Sora',sans-serif;font-weight:600;font-size:16px;color:var(--vino);margin-bottom:6px}
+.problema-ejemplo-tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;color:var(--vino);letter-spacing:0.04em;margin-bottom:10px;display:inline-block;background:white;border:0.5px solid var(--acento-fuerte);padding:4px 12px;border-radius:4px}
 .problema-ejemplo-texto{font-size:14px;font-weight:300;color:var(--texto-suave);line-height:1.8}
 .problema-cierre-ejemplos{font-size:13px;color:var(--texto-suave);font-style:italic;text-align:center;margin-top:32px;line-height:1.7}
 .problema-cierre{font-size:16px;font-weight:500;color:var(--texto);max-width:580px;margin:0 auto 8px;line-height:1.7}
@@ -109,7 +110,7 @@ h1,h2,h3{font-family:'Sora',sans-serif}
 
 /* QUIÉN SOY */
 .quien{background:#F9F3F5;padding:24px 40px 48px}
-.quien-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:960px;margin:0 auto}
+.quien-inner{display:grid;grid-template-columns:2fr 3fr;gap:48px;align-items:center;max-width:960px;margin:0 auto}
 .quien-foto{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block}
 .quien-der{display:flex;flex-direction:column;justify-content:center}
 .quien-tag{font-size:13px;font-weight:500;letter-spacing:0.02em;color:var(--acento-fuerte);margin-bottom:16px;display:block}
@@ -120,6 +121,7 @@ h1,h2,h3{font-family:'Sora',sans-serif}
 .credencial{font-size:13px;font-weight:500;letter-spacing:0.01em;color:var(--vino);padding-left:14px;border-left:2px solid var(--acento-fuerte)}
 .quien-partner{margin-top:24px;padding-top:20px;border-top:0.5px solid rgba(186,31,77,0.15);font-size:13px;color:var(--texto-suave)}
 .quien-partner strong{color:var(--vino)}
+.quien-banner{width:100%;max-width:960px;margin:48px auto 0;display:block;height:auto}
 
 /* CONTACTO */
 .cta-intermedio{background:#F9F3F5;padding:16px 40px 32px;text-align:center}
@@ -166,16 +168,19 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
   <h2 class="problema-titulo">El problema no es el resultado.<br>Es lo que lo produce.</h2>
   <div class="problema-ejemplos">
     <div class="problema-ejemplo">
-      <p class="problema-ejemplo-titulo">Variabilidad en los resultados</p>
-      <p class="problema-ejemplo-texto">Mismo equipo, mismo proceso, mismo objetivo — pero el resultado no lo sostiene el equipo completo, sino algunas personas puntuales. Cuando ellas faltan o cambian de foco, el resultado se cae.</p>
+      <span class="problema-ejemplo-tag">Variabilidad en los resultados</span>
+      <p class="problema-ejemplo-titulo">Cuando el resultado depende de pocos</p>
+      <p class="problema-ejemplo-texto">Mismo equipo, mismo proceso, mismo objetivo, pero el resultado no lo sostiene el equipo completo, sino algunas personas puntuales. Cuando ellas faltan o cambian de foco, el resultado se cae.</p>
     </div>
     <div class="problema-ejemplo">
-      <p class="problema-ejemplo-titulo">Reuniones que no terminan en decisiones claras</p>
-      <p class="problema-ejemplo-texto">Se discute, se acuerda "en general", y la semana siguiente cada uno entendió algo distinto — y se vuelve a discutir el mismo tema.</p>
+      <span class="problema-ejemplo-tag">Ineficiencia operativa</span>
+      <p class="problema-ejemplo-titulo">El mismo error, una y otra vez</p>
+      <p class="problema-ejemplo-texto">Se corrige, se explica, se vuelve a corregir, y el mismo error reaparece semanas después, como si nunca se hubiera hablado del tema. Nadie sabe si es falta de atención, de proceso, o de algo más profundo.</p>
     </div>
     <div class="problema-ejemplo">
-      <p class="problema-ejemplo-titulo">El costo invisible del retrabajo</p>
-      <p class="problema-ejemplo-texto">Algo se hace, se revisa, se rehace. El tiempo que se pierde en repetir el trabajo es invisible. La capacidad real del equipo queda más baja de lo que parece, sin que nadie entienda bien por qué.</p>
+      <span class="problema-ejemplo-tag">Duplicación operativa</span>
+      <p class="problema-ejemplo-titulo">El mismo trabajo, resuelto dos veces</p>
+      <p class="problema-ejemplo-texto">Alguien le pide algo a una persona, sin saber que ya se le había pedido lo mismo a otra. Cada una avanza por su cuenta, convencida de que es la única responsable. El equipo solo lo nota cuando el trabajo ya está hecho dos veces.</p>
     </div>
   </div>
   <p class="problema-cierre-ejemplos">Estos son solo algunos ejemplos. Cada equipo tiene sus propios desafíos.</p>
@@ -184,7 +189,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
 <section class="como-trabajo">
   <div class="como-trabajo-header">
     <h2 class="como-trabajo-titulo">Del problema a la solución</h2>
-    <p class="como-trabajo-texto">Nos integramos a las dinámicas clave del equipo y cruzamos lo que observamos en terreno, la data operacional y el objetivo buscado. De ahí nacen las <strong style="color:var(--vino)">microintervenciones</strong>: ajustes concretos que medimos y calibramos para mover el <strong style="color:var(--vino)">desempeño operacional</strong> de tu equipo.</p>
+    <p class="como-trabajo-texto">Cruzamos lo que observamos en terreno, la data operacional y el objetivo buscado. Así definimos las <strong style="color:var(--vino)">microintervenciones</strong>: ajustes que medimos y calibramos para mover el <strong style="color:var(--vino)">desempeño operacional</strong> de tu equipo.</p>
   </div>
   <div class="como-trabajo-diagrama">
 <svg viewBox="0 0 760 300" role="img" style="width:100%;max-width:760px;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
@@ -241,12 +246,15 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
       <h3 class="servicio-nombre">Diagnóstico Operativo de Equipos</h3>
       <p class="servicio-problema">“No sé qué está frenando los resultados de mi equipo, ni por dónde empezar.”</p>
       <p class="servicio-solucion">→ En 4 semanas tienes un mapa de acción priorizado por impacto, con foco accionable en el corto plazo.</p>
-      <span class="servicio-tag">5 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-01').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
       </button>
       <div class="servicio-detalle">
         <div class="servicio-detalle-inner">
+          <div class="detalle-bloque">
+            <span class="detalle-label">Duración</span>
+            <p class="detalle-texto">5 semanas</p>
+          </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Lo que hacemos</span>
             <p class="detalle-texto">Entendemos el desafío, revisamos información interna, nos integramos como observadores a la operación y analizamos supuestos e impactos. El equipo trabaja con normalidad.</p>
@@ -257,7 +265,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Tiempo cliente</span>
-            <p class="detalle-texto">2.5 horas semanales promedio, distribuidas en diferentes días — no todas involucran a todo el equipo.</p>
+            <p class="detalle-texto">2.5 horas semanales promedio, distribuidas en diferentes días, no todas involucran a todo el equipo.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Entregable</span>
@@ -265,7 +273,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Equipo consultor</span>
-            <p class="detalle-texto">En colaboración con BeAdaptive según requerimiento.</p>
+            <p class="detalle-texto">BeAdaptive.</p>
           </div>
         </div>
       </div>
@@ -276,12 +284,15 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
       <h3 class="servicio-nombre">Programa de Ejecución Operacional</h3>
       <p class="servicio-problema">“Ya sé qué hay que cambiar, pero necesito que ocurra rápido y sin desgastar a mi equipo.”</p>
       <p class="servicio-solucion">→ Mejoramos el desempeño operacional de tu equipo en 10 semanas, sin interrumpir su día a día.</p>
-      <span class="servicio-tag">10 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-02').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
       </button>
       <div class="servicio-detalle">
         <div class="servicio-detalle-inner">
+          <div class="detalle-bloque">
+            <span class="detalle-label">Duración</span>
+            <p class="detalle-texto">10 semanas</p>
+          </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Lo que hacemos</span>
             <p class="detalle-texto">Nos integramos a la operación, diseñamos microintervenciones junto al equipo, las implementamos en terreno y medimos el avance. El equipo trabaja con normalidad.</p>
@@ -292,7 +303,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Tiempo cliente</span>
-            <p class="detalle-texto">2 horas semanales promedio — con mayor intensidad desde la semana 5 en adelante.</p>
+            <p class="detalle-texto">2 horas semanales promedio, con mayor intensidad desde la semana 5 en adelante.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Entregable</span>
@@ -300,7 +311,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Equipo consultor</span>
-            <p class="detalle-texto">En colaboración con BeAdaptive según requerimiento.</p>
+            <p class="detalle-texto">BeAdaptive.</p>
           </div>
         </div>
       </div>
@@ -311,12 +322,15 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
       <h3 class="servicio-nombre">Entrenamiento de Equipos</h3>
       <p class="servicio-problema">“Mi equipo mejoró, pero necesito que sostenga el cambio en el tiempo.”</p>
       <p class="servicio-solucion">→ Tu equipo sostiene la competencia en su trabajo real, sin que dependa de ti.</p>
-      <span class="servicio-tag">4 a 6 semanas</span>
       <button class="servicio-toggle" onclick="document.getElementById('card-03').classList.toggle('expandido')">
         <span>Cómo funciona</span><span class="plus">+</span>
       </button>
       <div class="servicio-detalle">
         <div class="servicio-detalle-inner">
+          <div class="detalle-bloque">
+            <span class="detalle-label">Duración</span>
+            <p class="detalle-texto">4 a 6 semanas</p>
+          </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Lo que hacemos</span>
             <p class="detalle-texto">Diseñamos el programa según la competencia a desarrollar, facilitamos talleres presenciales, acompañamos la aplicación en terreno y damos feedback directo al equipo en sus rutinas de trabajo.</p>
@@ -327,7 +341,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Tiempo cliente</span>
-            <p class="detalle-texto">2.5 horas semanales promedio — con mayor intensidad en las últimas 2 semanas.</p>
+            <p class="detalle-texto">2.5 horas semanales promedio, con mayor intensidad en las últimas 2 semanas.</p>
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Competencias frecuentes</span>
@@ -343,7 +357,7 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
           </div>
           <div class="detalle-bloque">
             <span class="detalle-label">Equipo consultor</span>
-            <p class="detalle-texto">En colaboración con BeAdaptive según requerimiento.</p>
+            <p class="detalle-texto">BeAdaptive.</p>
           </div>
         </div>
       </div>
@@ -361,20 +375,16 @@ footer p{font-size:12px;color:rgba(245,230,235,0.4);letter-spacing:0.04em}
     <img src="solange_foto.png" alt="Solange Henríquez" class="quien-foto">
     <div class="quien-der">
       <span class="quien-tag">Quién soy</span>
-      <h2 class="quien-titulo">20 años en terreno.</h2>
+      <h2 class="quien-titulo">Transformando lo cotidiano para mejorar el resultado.</h2>
       <div class="quien-linea"></div>
-      <p class="quien-texto">Pasé más de 20 años liderando operaciones comerciales en retail y servicios — en oficina y mucho terreno. Ahí aprendí a identificar lo que nadie ve: los patrones que operan en silencio y que son los que más mueven los resultados.</p>
+      <p class="quien-texto">Pasé más de 20 años liderando operaciones comerciales en retail y servicios, entre ellas la operación comercial de los 17 centros comerciales de Mallplaza en Chile, con responsabilidad directa sobre EBITDA, ventas, flujo de clientes, eficiencia operativa y NPS.</p>
+      <p class="quien-texto">Me apasiona el resultado, basado en un servicio excepcional al cliente. Por eso desarrollé un modelo de gestión de experiencia del cliente que se transformó en el eje de gestión del negocio, llevando el aprendizaje a Perú y Colombia.</p>
+      <p class="quien-texto">Ahí aprendí algo que no está en los manuales: la brecha entre lo que los equipos quieren lograr y lo que realmente ocurre no está solo en los procesos, está en dinámicas invisibles que nadie observa y nadie mide, en cómo las personas interpretan, reaccionan y deciden en el día a día. Esa brecha me llevó a profundizar en neurociencia aplicada.</p>
       <p class="quien-texto">Hoy mi propósito es ayudar a otros líderes a resolver lo que yo aprendí a resolver. Porque el problema casi nunca está donde todos miran.</p>
-      <div class="quien-credenciales">
-        <span class="credencial">Coach certificada · NeuroLeadership Institute (NLI)</span>
-        <span class="credencial">+20 años en retail y servicios</span>
-        <span class="credencial">Especialista en comportamiento de equipos</span>
-      </div>
     </div>
   </div>
+  <img src="banner_manos..png" alt="Equipo trabajando junto a Solange Henríquez" class="quien-banner">
 </section>
-
-<section class="contacto" id="contacto">
   <a href="https://wa.me/56990991901" target="_blank" class="cta-btn-ws">Escríbeme</a>
   <a href="https://www.linkedin.com/in/solange-henriquez-castets/" target="_blank" class="contacto-linkedin">linkedin.com/in/solange-henriquez-castets</a>
 </section>
